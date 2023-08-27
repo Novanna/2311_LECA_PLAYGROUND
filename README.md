@@ -1,7 +1,4 @@
-### Project Clue
-
-________________________________________
-
+### ♡♡♡  ♡♡♡ ♡♡♡
 ## Documentation for C Programming 
 Computer Science 2711
 
