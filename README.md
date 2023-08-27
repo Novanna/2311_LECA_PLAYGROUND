@@ -1,11 +1,17 @@
 ### PROJECT CLUE
 
-########################################
-Documentation for C Programming 
-(Subject: ALGO&P SUBJECT)
-########################################
+________________________________________
 
-Tools: CodeBlocks
+## Documentation for C Programming 
+Computer Science 2711
+Subject: ALGO&P SUBJECT
 
-Notes: 
-Week 1 - Session 3
+________________________________________
+
+## Tools: 
+1. CodeBlocks
+________________________________________
+
+## Notes: 
+- Week 1 - Session 3
+________________________________________
