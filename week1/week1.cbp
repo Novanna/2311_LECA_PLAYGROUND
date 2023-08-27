@@ -31,6 +31,24 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="convertTime.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="counterLetters.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tk1_soal2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tp1_soal1.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tp1_soal2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tp1_soal2_v2.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
