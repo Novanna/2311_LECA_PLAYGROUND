@@ -1,9 +1,10 @@
-### PROJECT CLUE
+### Project Clue
 
 ________________________________________
 
 ## Documentation for C Programming 
 Computer Science 2711
+
 Subject: ALGO&P SUBJECT
 
 ________________________________________
