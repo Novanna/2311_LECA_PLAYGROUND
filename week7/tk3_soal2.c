@@ -11,12 +11,14 @@ struct Pegawai {
     char golongan[3];
 };
 
+// Fungsi untuk menampilkan pesan error
 void invalidMsg() {
     printf("\n==============================================================\n");
     printf("ERROR\t: Golongan tidak valid");
     printf("\n==============================================================");
 }
 
+// Fungsi untuk menampilkan pesan error
 void stopMsg() {
     printf("\n==============================================================\n");
     printf("Program berhenti karena terdapat kesalahan");
