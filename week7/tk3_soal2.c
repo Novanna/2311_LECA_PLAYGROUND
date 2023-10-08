@@ -11,10 +11,16 @@ struct Pegawai {
     char golongan[3];
 };
 
-int invalidMsg() {
+void invalidMsg() {
     printf("\n==============================================================\n");
-    printf("\t\tERROR\t: Golongan tidak valid");
+    printf("ERROR\t: Golongan tidak valid");
+    printf("\n==============================================================");
+}
+
+void stopMsg() {
     printf("\n==============================================================\n");
+    printf("Program berhenti karena terdapat kesalahan");
+    printf("\n==============================================================");
 }
 
 // Fungsi untuk menghitung gaji berdasarkan golongan
@@ -70,6 +76,13 @@ int main() {
     // Process: Hitung gaji pokok
     int gajiPokok = hitungGajiPokok(pegawai.golongan);
     
+    // Check return value dari hitungGajiPokok
+    if (gajiPokok == 1) {
+        // Handle kesalahan dan keluar dari program dengan return value yang sesuai
+        stopMsg();
+        return 1;
+    }
+    
     // Output 1
     printf("\n>\tInformasi Gaji Berdasarkan Golongan\t<\n\n");
     printf("NIP\t\t\t: %s\n", pegawai.nip);
@@ -78,29 +91,36 @@ int main() {
     printf("No HP\t\t: %s\n", pegawai.no_hp);
     printf("Jabatan\t\t: %s\n", pegawai.jabatan);
     printf("Golongan\t: %s\n", pegawai.golongan);
-    printf("Gaji\t\t: %d\n\n", gajiPokok);
+    printf("Gaji\t\t: Rp. %d,00\n\n", gajiPokok);
 
     printf("==============================================================\n");
 
     // Input 2
     int jamLembur;
     printf(">\tMenghitung Gaji Lemburan\t<\n\n");
-    printf("NIP\t\t\t\t: ");
+    printf("NIP\t\t\t\t\t: ");
     scanf("%s", pegawai.nip);
-    printf("Golongan\t\t: ");
+    printf("Golongan\t\t\t: ");
     scanf("%s", pegawai.golongan);
     printf("Jumlah Jam Lembur\t: ");
     scanf("%d", &jamLembur);
 
     // Hitung gaji lemburan
     int gajiLembur = hitungGajiLembur(pegawai.golongan, jamLembur);
+    
+    // Check return value dari hitungGajiPokok
+    if (gajiLembur == 1) {
+        // Handle kesalahan dan keluar dari program dengan return value yang sesuai
+        stopMsg();
+        return 1;
+    }
 
     // Output 2
     printf("\n>\tHasil Perhitungan Gaji Lemburan\t<\n\n");
-    printf("NIP\t\t\t: %s\n", pegawai.nip);
-    printf("Golongan\t\t: %s\n", pegawai.golongan);
-    printf("Lembur\t\t\t: %d\n", jamLembur);
-    printf("Total Gaji Bulan ini\t: %d\n", gajiPokok + gajiLembur);
+    printf("NIP\t\t\t\t\t\t: %s\n", pegawai.nip);
+    printf("Golongan\t\t\t\t: %s\n", pegawai.golongan);
+    printf("Lembur\t\t\t\t\t: %d\n", jamLembur);
+    printf("Total Gaji Bulan ini\t: Rp. %d,00\n", gajiPokok + gajiLembur);
     
     printf("==============================================================\n");
 
