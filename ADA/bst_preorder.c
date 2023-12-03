@@ -1,27 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef
- 
-struct
- 
-Node {
-
-  
-int data;
-  struct
- 
-Node *left;
-
-  
-struct
- 
-Node *right;
+typedef struct Node { 
+  int data;
+  struct Node *left;
+  struct Node *right;
 } Node;
 
-Node *createNode(int data)
- 
-{
+Node *createNode(int data) {
   Node *newNode = (Node *)malloc(sizeof(Node));
   newNode->data = data;
   newNode->left = NULL;
@@ -29,11 +15,7 @@ Node *createNode(int data)
   return newNode;
 }
 
-void
- 
-preOrderTraversal(Node *root)
- 
-{
+void preOrderTraversal(Node *root) {
   if (root != NULL) {
     printf("%d ", root->data);
     preOrderTraversal(root->left);
