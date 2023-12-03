@@ -31,6 +31,41 @@ void inOrderTraversal(Node *root) {
   }
 }
 
+void postOrderTraversal(Node *root) {
+  if (root != NULL) {
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    printf("%d ", root->data);
+  }
+}
+
+void levelOrderTraversal(struct Node* root) {
+    if (root == NULL)
+        return;
+
+    // Gunakan array untuk menyimpan Node yang akan dicetak
+    struct Node* queue[100];
+    int front = -1, rear = -1;
+
+    // Enqueue root ke dalam queue
+    queue[++rear] = root;
+
+    while (front != rear) {
+        // Dequeue Node dari queue dan cetak datanya
+        struct Node* currentNode = queue[++front];
+        printf("%d ", currentNode->data);
+
+        // Enqueue left child jika ada
+        if (currentNode->left != NULL)
+            queue[++rear] = currentNode->left;
+
+        // Enqueue right child jika ada
+        if (currentNode->right != NULL)
+            queue[++rear] = currentNode->right;
+    }
+}
+
+
 int main() {
   Node *root = createNode(35);
 
@@ -53,6 +88,12 @@ int main() {
   printf("--------------------\n");
   printf("### inOrderTraversal\n");
   inOrderTraversal(root);
+  printf("--------------------\n");
+  printf("### postOrderTraversal\n");
+  postOrderTraversal(root);
+  printf("--------------------\n");
+  printf("### levelOrderTraversal\n");
+  levelOrderTraversal(root);
 
 
   return 0;
