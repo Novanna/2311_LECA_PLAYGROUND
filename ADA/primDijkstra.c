@@ -27,7 +27,7 @@ void printMST(int parent[], int graph[V][V]) {
         totalWeight += graph[i][parent[i]];
     }
 
-    printf("\nTotal Minimum Spanning Tree Weight: %d\n", totalWeight);
+    printf("\nTotal Minimum Spanning Tree Weight (Prim Dijkstra): %d\n", totalWeight);
 }
 
 void printGraph(int graph[V][V]) {
@@ -65,11 +65,54 @@ void primDijkstra(int graph[V][V]) {
             }
         }
     }
-
-    printGraph(graph);
-    printf("\n");
     printMST(parent, graph);
 }
+
+// Helper function for Union-Find data structure
+int find(int parent[], int i) {
+  if (parent[i] == -1)
+    return i;
+  return find(parent, parent[i]);
+}
+
+void unionSet(int parent[], int x, int y) {
+  int xset = find(parent, x);
+  int yset = find(parent, y);
+  parent[xset] = yset;
+}
+
+void kruskal(int graph[V][V]) {
+  int parent[V];
+  for (int i = 0; i < V; i++)
+    parent[i] = -1;
+
+  int edgeCount = 0;
+  int totalWeight = 0;
+
+  while (edgeCount < V - 1) {
+    int min = INT_MAX, min_indexI = -1, min_indexJ = -1;
+
+    for (int i = 0; i < V; i++) {
+      for (int j = i + 1; j < V; j++) {
+        if (graph[i][j] && find(parent, i) != find(parent, j) && graph[i][j] < min) {
+          min = graph[i][j];
+          min_indexI = i;
+          min_indexJ = j;
+        }
+      }
+    }
+
+    if (min_indexI != -1 && min_indexJ != -1) {
+      printf("%c - %c \t%d\n", 'A' + min_indexI, 'A' + min_indexJ, min);
+      totalWeight += min;
+      unionSet(parent, min_indexI, min_indexJ);
+      edgeCount++;
+    }
+  }
+
+  printf("\nTotal Minimum Spanning Tree Weight (Kruskal): %d\n", totalWeight);
+}
+
 
 int main() {
     int graph[V][V] = {
@@ -84,8 +127,14 @@ int main() {
         {0, 30, 0, 0, 0, 11, 0, 20, 0, 9},
         {0, 25, 0, 0, 0, 12, 0, 0, 9, 0}
     };
+    
+    printGraph(graph);
+    printf("\n");
 
+    printf("Prim's Algorithm:\n");
     primDijkstra(graph);
+    printf("\nKruskal's Algorithm:\n");
+    kruskal(graph);
 
     return 0;
 }
