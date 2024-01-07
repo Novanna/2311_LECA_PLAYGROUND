@@ -17,9 +17,26 @@ function countFrequency(sentence) {
   return frequency;
 }
 
-// Contoh penggunaan
-const sentence = "EXPLORE THE SANDBOX METAVERSE";
-const frequency = countFrequency(sentence);
+function sortByFrequency(frequency) {
+  // Buatlah array baru untuk menyimpan hasil pengurutan
+  const sortedFrequency = [];
 
-// Mencetak frekuensi huruf
-console.log(frequency);
+  // Looping melalui array frekuensi
+  for (const [letter, count] of Object.entries(frequency)) {
+    // Tambahkan huruf dan frekuensinya ke array baru
+    sortedFrequency.push([letter, count]);
+  }
+
+  // Urutkan array baru berdasarkan frekuensi
+  sortedFrequency.sort((a, b) => a[1] - b[1]);
+
+  // Kembalikan array baru yang telah diurutkan
+  return sortedFrequency;
+}
+
+// Contoh penggunaan
+const frequency = countFrequency("EXPLORE THE SANDBOX METAVERSE");
+const sortedFrequency = sortByFrequency(frequency);
+
+// Mencetak frekuensi huruf yang telah diurutkan
+console.log(sortedFrequency);
