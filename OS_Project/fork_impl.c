@@ -3,30 +3,29 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
 
 #define MAX_CHILDREN 2
 
 void create_processes(int current_id, int max_id, const char* name);
 void print_memory_info();
-void print_time();
 char* secure_name(const char* name);
 char* custom_hash(const char* name);
 void process_task(int current_id, const char* name);
 
 int main() {
     char name[100];
+    printf("_______________________________________________________\n");
     printf("Masukkan Nama Lengkap: ");
     fgets(name, sizeof(name), stdin);
     name[strcspn(name, "\n")] = '\0'; // Remove newline character
-
+    printf("_______________________________________________________\n");
     create_processes(1, 5, name); // Adjust max_id (5) as needed for the hierarchy
     return 0;
 }
 
 void create_processes(int current_id, int max_id, const char* name) {
-    printf("P%d: Started\n", current_id);
+    printf("[log] P%d: Started | ", current_id);
+    print_memory_info();
 
     // Create child processes
     pid_t children[MAX_CHILDREN];
@@ -57,26 +56,11 @@ void create_processes(int current_id, int max_id, const char* name) {
     // Perform task for current process
     process_task(current_id, name);
 
-    printf("P%d: Finished\n", current_id);
+    printf("[log] P%d: Finished\n", current_id);
 }
 
 void print_memory_info() {
     printf("PID: %d | Parent PID: %d\n", getpid(), getppid());
-}
-
-void print_time() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-
-    // Convert timeval to local time
-    time_t rawtime = tv.tv_sec;
-    struct tm *ptm = gmtime(&rawtime);
-
-    // Adjust to WIB (UTC+7)
-    ptm->tm_hour = (ptm->tm_hour + 7) % 24;
-
-    printf(", Time: %02d:%02d:%02d:%06ld \n",
-           ptm->tm_hour, ptm->tm_min, ptm->tm_sec, tv.tv_usec);
 }
 
 char* secure_name(const char* name) {
@@ -118,8 +102,7 @@ char* custom_hash(const char* name) {
 }
 
 void process_task(int current_id, const char* name) {
-    //print_memory_info();
-    printf("Process %d: Started in ", current_id);
+    //printf("[log] Process %d: Started in ", current_id);
     print_memory_info();
 
     if (current_id == 2) {
@@ -146,6 +129,5 @@ void process_task(int current_id, const char* name) {
         free(hashed_name);
     }
 
-    printf("Process %d: Finished\n", current_id);
-    //print_time();
+    //printf("[log] Process %d: Finished\n", current_id);
 }
