@@ -17,9 +17,10 @@ int main() {
     printf("_______________________________________________________\n");
     printf("Masukkan Nama Lengkap: ");
     fgets(name, sizeof(name), stdin);
-    name[strcspn(name, "\n")] = '\0'; // Remove newline character
+    // remove newline character
+    name[strcspn(name, "\n")] = '\0';
     printf("_______________________________________________________\n");
-    create_processes(1, 5, name); // Adjust max_id (5) as needed for the hierarchy
+    create_processes(1, 5, name); 
     return 0;
 }
 
@@ -27,16 +28,16 @@ void create_processes(int current_id, int max_id, const char* name) {
     printf("[log] P%d: Started | ", current_id);
     print_memory_info();
 
-    // Create child processes
+    // create child processes
     pid_t children[MAX_CHILDREN];
     int num_children = 0;
 
     if (current_id == 1) {
-        // Process 1 has children 2 and 3
+        // p1 has children p2 and p3
         children[num_children++] = 2;
         children[num_children++] = 3;
     } else if (current_id == 3) {
-        // Process 3 has children 4 and 5
+        // p3 has p4 and p5
         children[num_children++] = 4;
         children[num_children++] = 5;
     }
@@ -44,16 +45,16 @@ void create_processes(int current_id, int max_id, const char* name) {
     for (int i = 0; i < num_children; ++i) {
         pid_t pid = fork();
         if (pid == 0) {
-            // Child process
+            // child process
             create_processes(children[i], max_id, name);
             return;
         }
     }
 
-    // Wait for all child processes to finish
+    // wait for all child processes to finish
     while (wait(NULL) > 0);
 
-    // Perform task for current process
+    // perform task for current process
     process_task(current_id, name);
 
     printf("[log] P%d: Finished\n", current_id);
@@ -64,12 +65,13 @@ void print_memory_info() {
 }
 
 char* secure_name(const char* name) {
-    // Secure the name by replacing characters with '*'
+    // hasing name
     size_t len = strlen(name);
     char* secure = malloc(len + 1);
 
     strncpy(secure, name, len);
-    for (int i = 2; i < len - 2; ++i) { // Replace characters except the first and last two
+    // replace characters except the first and last two
+    for (int i = 2; i < len - 2; ++i) {
         if (secure[i] != ' ') {
             secure[i] = '*';
         }
@@ -82,10 +84,10 @@ char* custom_hash(const char* name) {
     size_t len = strlen(name);
     char* hashed = malloc(len + 1);
 
-    // Copy the first two characters as they are
+    // copy the first two char
     strncpy(hashed, name, 2);
 
-    // Hash the characters in between
+    // hash the characters in between
     for (int i = 2; i < len - 2; ++i) {
         if (name[i] != ' ') {
             hashed[i] = '*';
@@ -94,7 +96,7 @@ char* custom_hash(const char* name) {
         }
     }
 
-    // Copy the last two characters as they are
+    // copy the last two char
     strncpy(hashed + (len - 2), name + (len - 2), 2);
 
     hashed[len] = '\0';
@@ -102,8 +104,6 @@ char* custom_hash(const char* name) {
 }
 
 void process_task(int current_id, const char* name) {
-    //printf("[log] Process %d: Started in ", current_id);
-    print_memory_info();
 
     if (current_id == 2) {
         printf("_______________________________________________________\n");
@@ -128,6 +128,4 @@ void process_task(int current_id, const char* name) {
         printf("_______________________________________________________\n");
         free(hashed_name);
     }
-
-    //printf("[log] Process %d: Finished\n", current_id);
 }
