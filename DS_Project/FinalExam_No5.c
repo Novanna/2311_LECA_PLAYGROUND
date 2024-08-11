@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 // define constants for max num of vertices and edges
 #define MAX_VERTICES 6
